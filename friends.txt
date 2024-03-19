@@ -1,0 +1,8 @@
+Use the input function to show each of the above emojis to a user and ask her to provide 5 words that describe the emoji. The user should provide 5 single word separated by ';' to describe the emoji. For example: "Happy;Nice; smile;happy ;cheers "
+After receiving the user's input, you must divide the string into a list of five items, remove any possible white space around the words, and convert all of them to lowercase.For example: the above input should converted into ['happy','nice','smile','happy','cheers']
+Convert the list to a set to eliminate any possible duplicates. For example: the above set should converted into {'happy','nice','smile','cheers'}
+Make a dictionary that associates each emoji code with a set of words provided by the user as a descriptor for that emoji. In doing so, you need to use the emoji code as the key and the identified set as the value. For example: {':slightly_smiling_face:':{'happy','nice','smile','cheers'}}
+Using the iterative structure, add one set to the dictionary for each emoji code.
+Part #2: Use the pickle package to save the dictionary you created in the previous section to a data file.
+Part #3: Load the saved data to a new variable named emoji_dict.
+Part #4: Prompt the user to write a sentence containing some of the words she used to describe the emojis. Add the associated emoji to the sentence right after the word that describe the emoji and print it for the user For example: If the user inputs "I'm so happy today", your code should print "I'm so happy 🙂 today."

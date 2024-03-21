@@ -1,0 +1,23 @@
+mkdir - to create a folder(directory)
+syntax mkdir (dir name)
+
+To open a folder use - Cd( mchange directory)
+
+To create a file inside the directory use   *&  touch (file name)
+
+ls  #it stands for list of files
+
+Nano (file name) #us ethis command to write somthing  in the text file
+
+cat (file name ) # use this command to see what what is written in the file
+
+rm   #stand for remove the file  or delete
+ rm ( file name )
+
+rm *   #use this command for deleting all the files
+
+ls -l  #use this command to check which is file or directory
+ cd ..   # use this retuen to the another directory 
+cd ../..  #return to the home directory
+ mv - to move  file 
+ syntax  ex -  mv task1.txt test1

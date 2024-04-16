@@ -1,16 +1,43 @@
-
 pipeline {
-    agent {
-        docker {
-            image 'node:20.11.1-alpine3.19'
-        }
-    }
+    agent any
+
     stages {
+        stage('Clone') {
+            steps {
+                // Checkout the repository from GitHub
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Build the Docker image
+                script {
+                    def app = docker.build('ajayrao515/training') // Change this to your Docker Hub repo
+                }
+            }
+        }
+
         stage('Test') {
             steps {
-                sh 'node --version'
+                // Placeholder for future unit tests
+                echo 'Running tests...'
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                // Push the image to Docker Hub
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'ajayrao515') {
+                        app.push()
+                    }
+                }
             }
         }
     }
 }
 
+
+
+     

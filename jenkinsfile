@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+        registry = "ajayrao515/training"
+        registrycredential = "dockerhub_ID"
 
     stages {
         stage('Clone') {

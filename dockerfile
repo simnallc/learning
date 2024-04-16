@@ -1,15 +1,19 @@
-FROM ubuntu:latest
+# our base image
+FROM alpine:3.5
 
-# Set environment variables
-ENV DEBIAN_FRONTEND=noninteractive
+# Install python and pip
+RUN apk add --update py2-pip
 
-# Install any necessary dependencies
-RUN apt-get update && \
-    apt-get install -y \
-    nginx
+# install Python modules needed by the Python app
+COPY requirements.txt /usr/src/app/
+RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 
-# Expose any ports the app is expecting
-EXPOSE 80
+# copy files required for the app to run
+COPY app.py /usr/src/app/
+COPY templates/index.html /usr/src/app/templates/
 
-# Start nginx in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# tell the port number the container should expose
+EXPOSE 5000
+
+# run the application
+CMD ["python", "/usr/src/app/app.py"]

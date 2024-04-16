@@ -1,37 +1,16 @@
+
 pipeline {
-    agent any
-
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
-        timestamps()
+    agent {
+        docker {
+            image 'node:20.11.1-alpine3.19'
+        }
     }
-
-    environment {
-        registryCredential = credentials('docker')
-    }
-
     stages {
-        stage('Build') {
+        stage('Test') {
             steps {
-                script {
-                    sh "docker build -t ajayrao515/training:v1 ."
-                }
-            }
-        }
-        stage('Login to Docker Hub') {
-            steps {
-                script {
-                    sh "echo $registryCredential_PSW | docker login -u $registryCredential_USR --password-stdin"
-                }
-            }
-        }
-
-        stage('Push Image') {
-            steps {
-                script {
-                    sh "docker push ajayrao515/training:v1"
-                }
+                sh 'node --version'
             }
         }
     }
 }
+

@@ -32,8 +32,8 @@ pipeline {
             steps {
                 // Push the image to Docker Hub
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'ajayrao515') {
-                        app.push()
+                    docker.push('https://registry.hub.docker.com', 'ajayrao515') {
+                        docker.push()
                     }
                 }
             }

@@ -16,7 +16,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'DOCKERHUB_CREDENTIALS') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
                         docker.image("ajayrao515/training:latest").push()
                     }
                 }

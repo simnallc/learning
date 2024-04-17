@@ -1,39 +1,31 @@
-pipeline {
+pipeline{
+    
     agent any
-
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
-        timestamps()
+    
+    environment{
+        dockerImage = ""
+        registry = "ajayrao515/training"
+        registryCredential = "dockerhub_ID"
     }
-
-    environment {
-        registryCredential = credentials('dockerhub_ID')
-    }
-
-    stages {
-        stage('Build') {
-            steps {
-                script {
-                    sh "docker build -t ajayrao515/training:latest ."
+    
+        stage("build docker image") {
+            steps{
+                script{
+                    sh "docker build -t ajayrao515/training ."
+                }
+            }    
+        }
+        stage("push image to dockerhub"){
+            steps{
+                script{
+                 withCredentials([string(credentialsId: 'dockerhubv1', variable: 'dockerhubv1')]) {
+                sh "docker login -u ajayrao515 -p ${dockerhubv1}"
+}
+                sh "docker push ajayrao515/training"
                 }
             }
         }
-        stage('Login to Docker Hub') {
-            steps {
-                script {
-                    sh "echo $dockerhub_ID | docker login -u $ajayrao515 --password-Malahalrao31@#"
-                }
-            }
-        }
-
-        stage('Push Image') {
-            steps {
-                script {
-                    sh "docker push ajayrao515/training:latest "
-                }
-            }
-        }
-    }
+    }   
 }
 
 

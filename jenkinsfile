@@ -9,7 +9,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    docker.build("ajayrao515/training:ajayrao515/training:latest")
+                    docker.build("ajayrao515/training:latest")
                 }
             }
         }
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'DOCKERHUB_CREDENTIALS') {
-                        docker.image("ajayrao515/training:ajayrao515/training:latest").push()
+                        docker.image("ajayrao515/training:latest").push()
                     }
                 }
             }

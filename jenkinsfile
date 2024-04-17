@@ -32,8 +32,8 @@ pipeline {
             steps {
                 // Push the image to Docker Hub
                 script {
-                    docker.push('https://registry.hub.docker.com', 'ajayrao515') {
-                        docker.push()
+                     sh "docker login -u ajayrao515 -p ${dockerhubv1}"       
+                     sh "docker push ajayrao515/training"
                     }
                 }
             }

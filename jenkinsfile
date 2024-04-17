@@ -21,7 +21,7 @@ pipeline {
         stage('Login to Docker Hub') {
             steps {
                 script {
-                    sh "echo $ajayrao515 | docker login -u $ajayrao515 --password-Malahalrao31@#"
+                    sh "echo $dockerhub_ID | docker login -u $ajayrao515 --password-Malahalrao31@#"
                 }
             }
         }

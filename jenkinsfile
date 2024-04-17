@@ -28,12 +28,13 @@ pipeline {
             }
         }
 
-        stage('Push to Docker Hub') {
-            steps {
-                // Push the image to Docker Hub
-                script {
-                     sh "docker login -u ajayrao515 -p ${dockerhubv1}"       
-                     sh "docker push ajayrao515/training"
+    stage("push image to dockerhub"){
+            steps{
+                script{
+                 withCredentials([string(credentialsId: 'dockerhubv1', variable: 'dockerhubv1')]) {
+                sh "docker login -u ajayrao515 -p ${dockerhubv1}"
+}
+                sh "docker push ajayrao515/training"
                     }
                 }
             }

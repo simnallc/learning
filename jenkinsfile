@@ -1,41 +1,35 @@
 pipeline {
     agent any
-    environment{
-        registrycredential = "dockerhub_ID"
-        }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
+        timestamps()
+    }
+
+    environment {
+        registryCredential = credentials('docker_ID')
+    }
 
     stages {
-        stage('Clone') {
-            steps {
-                // Checkout the repository from GitHub
-                checkout scm
-            }
-        }
-
         stage('Build') {
             steps {
-                // Build the Docker image
                 script {
-                    def app = docker.build('ajayrao515/training') // Change this to your Docker Hub repo
+                    sh "docker build -t ajayrao515/training:latest ."
+                }
+            }
+        }
+        stage('Login to Docker Hub') {
+            steps {
+                script {
+                    sh "echo $ajayrao515 | docker login -u $ajayrao515 --password-Malahalrao31@#"
                 }
             }
         }
 
-        stage('Test') {
+        stage('Push Image') {
             steps {
-                // Placeholder for future unit tests
-                echo 'Running tests...'
-            }
-        }
-
-    stage("push image to dockerhub"){
-            steps{
-                script{
-                 withCredentials([string(credentialsId: 'dockerhubv1', variable: 'dockerhubv1')]) {
-                sh "docker login -u ajayrao515 -p ${dockerhubv1}"
-}
-                sh "docker push ajayrao515/training"
-                    }
+                script {
+                    sh "docker push ajayrao515/training:latest "
                 }
             }
         }
